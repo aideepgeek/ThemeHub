@@ -58,7 +58,7 @@ export function Navbar() {
           {/* GitHub Button */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="https://github.com"
+              href="https://github.com/aideepgeek/ThemeHub"
               target="_blank"
               rel="noopener noreferrer"
             >

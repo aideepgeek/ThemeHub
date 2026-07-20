@@ -1,11 +1,25 @@
-# React + TypeScript + Vite
+# ThemeHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Discover Free Themes for GitHub Pages. Powered by React + TypeScript + Vite.
 
-Currently, two official plugins are available:
+Browse the best hand-picked themes for Jekyll, Hugo, and Octopress. Filter by platform, sort by stars, and find your perfect site design.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
+
+First, install dependencies:
+```bash
+npm install
+```
+
+Then, run the development server:
+
+```bash
+npm run dev
+# or
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## React Compiler
 
