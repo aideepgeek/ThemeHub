@@ -19,7 +19,7 @@ npm run dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the result.
 
 ## React Compiler
 

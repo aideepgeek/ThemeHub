@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Github, Menu, X, Sparkles } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
