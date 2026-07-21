@@ -15,9 +15,9 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '#themes', label: 'Browse Themes' },
-    { href: '#features', label: 'Features' },
-    { href: '#about', label: 'About' },
+    { href: '/#themes', label: 'Browse Themes' },
+    { href: '/#features', label: 'Features' },
+    { href: '/#about', label: 'About' },
   ];
 
   return (
@@ -56,7 +56,7 @@ export function Navbar() {
           </div>
 
           {/* GitHub Button */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* <div className="hidden md:flex items-center gap-3">
             <a
               href="https://github.com/aideepgeek/ThemeHub"
               target="_blank"
@@ -67,7 +67,7 @@ export function Navbar() {
                 <span>GitHub</span>
               </Button>
             </a>
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <button

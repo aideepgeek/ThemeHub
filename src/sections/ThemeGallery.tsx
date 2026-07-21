@@ -11,7 +11,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ThemeCard } from '@/components/ThemeCard';
+import { Pagination } from '@/components/Pagination';
 import { themes, platformLabels, sortOptions, tagOptions } from '@/data/themes';
+
+const ITEMS_PER_PAGE = 12;
 
 export function ThemeGallery() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,6 +23,7 @@ export function ThemeGallery() {
   const [sortBy, setSortBy] = useState<string>('stars-desc');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const platforms = [
     { value: 'all', label: 'All Platforms', count: themes.length },
@@ -77,10 +81,18 @@ export function ThemeGallery() {
     return result;
   }, [selectedPlatform, searchQuery, selectedTags, sortBy]);
 
+  // Pagination
+  const totalPages = Math.ceil(filteredThemes.length / ITEMS_PER_PAGE);
+  const paginatedThemes = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredThemes.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredThemes, currentPage]);
+
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
+    setCurrentPage(1); // Reset to first page when filter changes
   };
 
   const clearFilters = () => {
@@ -88,6 +100,22 @@ export function ThemeGallery() {
     setSelectedPlatform('all');
     setSelectedTags([]);
     setSortBy('stars-desc');
+    setCurrentPage(1);
+  };
+
+  const handlePlatformChange = (platform: string) => {
+    setSelectedPlatform(platform);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
+  const handleSortChange = (value: string) => {
+    setSortBy(value);
+    setCurrentPage(1);
   };
 
   const hasActiveFilters = searchQuery || selectedPlatform !== 'all' || selectedTags.length > 0;
@@ -115,7 +143,7 @@ export function ThemeGallery() {
               <Input
                 placeholder="Search themes, tags, or descriptions..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => handleSearchChange(e.target.value)}
                 className="pl-10 h-11"
               />
             </div>
@@ -125,7 +153,7 @@ export function ThemeGallery() {
               {platforms.map((platform) => (
                 <button
                   key={platform.value}
-                  onClick={() => setSelectedPlatform(platform.value)}
+                  onClick={() => handlePlatformChange(platform.value)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     selectedPlatform === platform.value
                       ? 'bg-white text-slate-900 shadow-sm'
@@ -140,7 +168,7 @@ export function ThemeGallery() {
 
             {/* Sort & View Toggle */}
             <div className="flex items-center gap-2">
-              <Select value={sortBy} onValueChange={setSortBy}>
+              <Select value={sortBy} onValueChange={handleSortChange}>
                 <SelectTrigger className="w-[160px] h-11">
                   <Star className="w-4 h-4 mr-2 text-slate-400" />
                   <SelectValue />
@@ -194,7 +222,7 @@ export function ThemeGallery() {
               {platforms.map((platform) => (
                 <button
                   key={platform.value}
-                  onClick={() => setSelectedPlatform(platform.value)}
+                  onClick={() => handlePlatformChange(platform.value)}
                   className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                     selectedPlatform === platform.value
                       ? 'bg-indigo-50 text-indigo-700 border border-indigo-200'
@@ -282,21 +310,36 @@ export function ThemeGallery() {
         {/* Results Count */}
         <div className="flex items-center justify-between mb-6">
           <p className="text-slate-600">
-            Showing <span className="font-semibold text-slate-900">{filteredThemes.length}</span> themes
+            Showing <span className="font-semibold text-slate-900">{paginatedThemes.length}</span> of{' '}
+            <span className="font-semibold text-slate-900">{filteredThemes.length}</span> themes
           </p>
+          {totalPages > 1 && (
+            <p className="text-sm text-slate-500">
+              Page {currentPage} of {totalPages}
+            </p>
+          )}
         </div>
 
         {/* Themes Grid */}
         {filteredThemes.length > 0 ? (
-          <div className={`grid gap-6 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-              : 'grid-cols-1'
-          }`}>
-            {filteredThemes.map((theme) => (
-              <ThemeCard key={theme.id} theme={theme} />
-            ))}
-          </div>
+          <>
+            <div className={`grid gap-6 ${
+              viewMode === 'grid' 
+                ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+                : 'grid-cols-1'
+            }`}>
+              {paginatedThemes.map((theme) => (
+                <ThemeCard key={theme.id} theme={theme} />
+              ))}
+            </div>
+            
+            {/* Pagination */}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </>
         ) : (
           <div className="text-center py-20">
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-slate-100 flex items-center justify-center">

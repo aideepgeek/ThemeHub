@@ -9,10 +9,26 @@ export interface Theme {
   tags: string[];
   lastUpdated: string;
   image?: string;
+  features?: string[];
+  longDescription?: string;
 }
 
 export const themes: Theme[] = [
   // Jekyll Themes
+  {
+    id: 'modern-jekyll',
+    name: 'Modern Jekyll Theme',
+    description: 'A modern, fast, and responsive Jekyll theme',
+    githubUrl: 'https://github.com/aideepgeek/modern-jekyll-theme',
+    previewUrl: 'https://aideepgeek.github.io/modern-jekyll-theme/',
+    stars: 1,
+    platform: 'jekyll',
+    tags: ['blog', 'personal', 'responsive'],
+    lastUpdated: '2026-07-10',
+    image: 'https://raw.githubusercontent.com/aideepgeek/modern-jekyll-theme/main/assets/images/screenshot.png',
+    longDescription: 'A modern, fast, and responsive Jekyll theme built with Tailwind CSS and Alpine.js. Perfect for developers, designers, and creatives who want a sleek online presence.',
+    features: ['🎨 Modern Design - Clean, minimalist aesthetic with beautiful typography', '⚡ Lightning Fast - Optimized for 100/100 Lighthouse scores', '📱 Fully Responsive - Looks great on all devices', '🌙 Dark Mode - Automatic dark mode support', '🎨 Tailwind CSS - Utility-first CSS framework', '🔧 Easy Customization - Well-organized and documented code'],
+  },
   {
     id: 'beautiful-jekyll',
     name: 'Beautiful Jekyll',
@@ -23,6 +39,9 @@ export const themes: Theme[] = [
     platform: 'jekyll',
     tags: ['blog', 'personal', 'responsive'],
     lastUpdated: '2025-03-23',
+    image: 'https://themes.jekyllrc.org/thumbnails/beautiful-jekyll.jpg',
+    longDescription: 'Beautiful Jekyll is a ready-to-use template that helps you create a beautiful website or blog in minutes. It is designed to look great on both desktop and mobile devices.',
+    features: ['Responsive design', 'SEO optimized', 'Social media integration', 'Google Analytics support', 'Comments via Disqus', 'Blogging functionality'],
   },
   {
     id: 'online-cv',
@@ -34,6 +53,7 @@ export const themes: Theme[] = [
     platform: 'jekyll',
     tags: ['resume', 'cv', 'portfolio'],
     lastUpdated: '2025-08-12',
+    image: 'https://raw.githubusercontent.com/sharu725/online-cv/master/assets/images/desktop.png',
   },
   {
     id: 'lanyon',
@@ -56,6 +76,9 @@ export const themes: Theme[] = [
     platform: 'jekyll',
     tags: ['blog', 'portfolio', 'responsive'],
     lastUpdated: '2025-01-15',
+    image: 'https://mmistakes.github.io/minimal-mistakes/assets/images/mm-layout-splash.png',
+    longDescription: 'Minimal Mistakes is a flexible two-column Jekyll theme perfect for building personal sites, blogs, and portfolios. It features a clean, minimal design with plenty of customization options.',
+    features: ['Responsive layout', 'Multiple skin options', 'Archive pages', 'Search functionality', 'Syntax highlighting', 'Support for various content types'],
   },
   {
     id: 'just-the-docs',
@@ -67,6 +90,9 @@ export const themes: Theme[] = [
     platform: 'jekyll',
     tags: ['documentation', 'docs', 'responsive'],
     lastUpdated: '2025-02-20',
+    image: 'https://raw.githubusercontent.com/just-the-docs/just-the-docs/main/assets/images/just-the-docs.png',
+    longDescription: 'Just the Docs is a modern, highly customizable, and responsive Jekyll theme for documentation websites. It is designed to be easy to set up and maintain.',
+    features: ['Auto-generated navigation', 'Search functionality', 'Dark mode support', 'Code syntax highlighting', 'Callout boxes', 'Mermaid diagram support'],
   },
   {
     id: 'forty-jekyll-theme',
@@ -245,6 +271,9 @@ export const themes: Theme[] = [
     platform: 'hugo',
     tags: ['blog', 'fast', 'minimal'],
     lastUpdated: '2025-01-20',
+    image: 'https://raw.githubusercontent.com/adityatelange/hugo-PaperMod/master/images/screenshot.png',
+    longDescription: 'PaperMod is a fast, clean, and responsive Hugo theme perfect for personal blogs and portfolios. It features a minimal design with excellent performance.',
+    features: ['Fast loading', 'SEO friendly', 'Dark mode', 'Search functionality', 'Social icons', 'Code copy button'],
   },
   {
     id: 'hugo-blox-builder',
@@ -256,6 +285,7 @@ export const themes: Theme[] = [
     platform: 'hugo',
     tags: ['builder', 'academic', 'portfolio'],
     lastUpdated: '2025-02-15',
+    image: 'https://raw.githubusercontent.com/HugoBlox/kit/main/.github/media/hero.png',
   },
   {
     id: 'hugo-theme-stack',
@@ -267,6 +297,9 @@ export const themes: Theme[] = [
     platform: 'hugo',
     tags: ['blog', 'card', 'modern'],
     lastUpdated: '2025-03-01',
+    image: 'https://raw.githubusercontent.com/CaiJimmy/hugo-theme-stack/master/images/screenshot.png',
+    longDescription: 'Stack is a card-style Hugo theme designed for bloggers. It features a modern, clean design with a focus on readability and user experience.',
+    features: ['Card-style layout', 'Responsive design', 'Dark mode', 'KaTeX math support', 'Photo gallery', 'Multilingual support'],
   },
   {
     id: 'hugo-book',
@@ -278,6 +311,9 @@ export const themes: Theme[] = [
     platform: 'hugo',
     tags: ['documentation', 'docs', 'book'],
     lastUpdated: '2025-01-10',
+    image: 'https://raw.githubusercontent.com/alex-shpak/hugo-book/master/images/screenshot.png',
+    longDescription: 'Hugo Book is a clean, modern documentation theme for Hugo. It is designed for building documentation and knowledge base websites.',
+    features: ['Clean documentation layout', 'Search functionality', 'Collapsible menu', 'Code highlighting', 'Dark mode', 'Multilingual support'],
   },
   {
     id: 'loveit',
@@ -656,12 +692,12 @@ export const themes: Theme[] = [
     lastUpdated: '2019-03-01',
   },
   {
-    id: 'my-octopress-blog',
-    name: 'My Octopress Blog',
+    id: 'xoctopress',
+    name: 'Xoctopress Blog',
     description: 'Personal blog theme',
-    githubUrl: 'https://github.com/shinux/shinux.github.io',
-    previewUrl: '',
-    stars: 34,
+    githubUrl: 'https://github.com/ibillxia/xoctopress',
+    previewUrl: 'https://ibillxia.github.io/',
+    stars: 1,
     platform: 'octopress',
     tags: ['personal', 'blog', 'simple'],
     lastUpdated: '2023-12-28',

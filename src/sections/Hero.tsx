@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 
 export function Hero() {
   const stats = [
-    { value: '100+', label: 'Free Themes', icon: Sparkles },
+    { value: '60+', label: 'Free Themes', icon: Sparkles },
     { value: '50K+', label: 'GitHub Stars', icon: Star },
     { value: '3', label: 'Platforms', icon: Zap },
   ];

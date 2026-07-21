@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { ExternalLink, Github, Star, Calendar, Tag } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ interface ThemeCardProps {
 }
 
 export function ThemeCard({ theme }: ThemeCardProps) {
+  const navigate = useNavigate();
   const platform = platformLabels[theme.platform];
 
   const formatStars = (stars: number) => {
@@ -27,8 +29,27 @@ export function ThemeCard({ theme }: ThemeCardProps) {
     });
   };
 
+  const handleCardClick = () => {
+    navigate(`/theme/${theme.id}`);
+  };
+
+  const handlePreviewClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (theme.previewUrl) {
+      window.open(theme.previewUrl, '_blank');
+    }
+  };
+
+  const handleGithubClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.open(theme.githubUrl, '_blank');
+  };
+
   return (
-    <div className="group relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-300">
+    <div 
+      onClick={handleCardClick}
+      className="group relative bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 hover:border-slate-300 transition-all duration-300 cursor-pointer"
+    >
       {/* Platform Badge */}
       <div className="absolute top-4 left-4 z-10">
         <Badge 
@@ -38,9 +59,22 @@ export function ThemeCard({ theme }: ThemeCardProps) {
         </Badge>
       </div>
 
-      {/* Preview Image Placeholder */}
+      {/* Preview Image */}
       <div className="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
+        {theme.image ? (
+          <img 
+            src={theme.image} 
+            alt={theme.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onError={(e) => {
+              // If image fails to load, show fallback
+              (e.target as HTMLImageElement).style.display = 'none';
+            }}
+          />
+        ) : null}
+        
+        {/* Fallback content when no image or image fails */}
+        <div className={`absolute inset-0 flex items-center justify-center ${theme.image ? 'hidden' : ''}`}>
           <div className="text-center">
             <div 
               className="w-16 h-16 mx-auto mb-3 rounded-2xl flex items-center justify-center text-2xl font-bold"
@@ -58,34 +92,24 @@ export function ThemeCard({ theme }: ThemeCardProps) {
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
           {theme.previewUrl && (
-            <a
-              href={theme.previewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button 
-                size="sm" 
-                variant="secondary"
-                className="gap-2 bg-white/90 hover:bg-white text-slate-900"
-              >
-                <ExternalLink className="w-4 h-4" />
-                Preview
-              </Button>
-            </a>
-          )}
-          <a
-            href={theme.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
             <Button 
-              size="sm"
-              className="gap-2 bg-indigo-600 hover:bg-indigo-700 text-white"
+              size="sm" 
+              variant="secondary"
+              className="gap-2 bg-white/90 hover:bg-white text-slate-900"
+              onClick={handlePreviewClick}
             >
-              <Github className="w-4 h-4" />
-              View Code
+              <ExternalLink className="w-4 h-4" />
+              Preview
             </Button>
-          </a>
+          )}
+          <Button 
+            size="sm"
+            className="gap-2 bg-indigo-600 hover:bg-indigo-700 text-white"
+            onClick={handleGithubClick}
+          >
+            <Github className="w-4 h-4" />
+            View Code
+          </Button>
         </div>
       </div>
 
@@ -135,25 +159,21 @@ export function ThemeCard({ theme }: ThemeCardProps) {
           </div>
           
           <div className="flex items-center gap-2">
-            <a
-              href={theme.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={handleGithubClick}
               className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors"
               title="View on GitHub"
             >
               <Github className="w-4 h-4" />
-            </a>
+            </button>
             {theme.previewUrl && (
-              <a
-                href={theme.previewUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={handlePreviewClick}
                 className="p-2 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors"
                 title="Live Preview"
               >
                 <ExternalLink className="w-4 h-4" />
-              </a>
+              </button>
             )}
           </div>
         </div>
